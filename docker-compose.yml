@@ -1,0 +1,63 @@
+version: '2'
+
+services:
+
+  adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
+
+  flutter:
+    container_name: hodos-flutter
+    build: ./flutter/
+    volumes:
+      - ./flutter/src:/home/developer/flutter_app # Project source code
+      - ./volumes/flutter/.gradle:/home/developer/.gradle # Project for win a time when container is up after down
+      - /dev/bus/usb:/dev/bus/usb # For debug USB
+      - /tmp/.X11-unix:/tmp/.X11-unix # For debug Emulator
+    env_file:
+      - .env
+    environment:
+      - BASE_URL_API=http://django:${API_PORT}/api
+      - UID=id -u
+      - GID=id -g
+      - DISPLAY=${DISPLAY} # For debug Emulator
+    devices:
+      - /dev/bus # For debug USB
+      - /dev/kvm # For debug Emulator
+      - /dev/dri:/dev/dri # For debug Emulator
+    ports:
+      - 42000:42000  # For debug Emulator
+    working_dir: /home/developer/flutter_app
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres
+    container_name: hodos-postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  django:
+    build: ./django
+    container_name: hodos-django
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:${API_PORT}"
+    volumes:
+      - ./django:/code
+    ports:
+      - ${API_PORT}:8000
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+
+
+volumes:
+  pg_data:

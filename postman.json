@@ -1,0 +1,639 @@
+{
+	"info": {
+		"_postman_id": "4f7027de-5a83-4b84-999c-e6a9fb6e6274",
+		"name": "Hodos (ESP)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()",
+									"",
+									"pm.collectionVariables.set(\"TOKEN_ACCESS\", response.tokens.access)",
+									"pm.collectionVariables.set(\"TOKEN_REFRESH\", response.tokens.refresh)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"guillaumeschaffer@yahoo.fr\",\n  \"password\": \"password\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/auth/login",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email-verify",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "no test for this one",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/auth/email-verify",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"email-verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "guillaumeschaffer@yahoo.fr",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTIyMTE4LCJpYXQiOjE2NzYxMjE1MTgsImp0aSI6ImMyMzllZDE1YzRiNjRkMjY5NjVjMWQwMDIwMjdjMDY0IiwidXNlcl9pZCI6OH0.1dWJgnhTNQPZU9g5ADSWd8bhiGrDM8gdHb7rgg-EwSc",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/auth/register",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3NjIzNzQyNSwiaWF0IjoxNjc2MTUxMDI1LCJqdGkiOiIzOTkwNzE0ZDE5MWU0OTAzYWRlMjA5ZDA0ZGY4ZDQ0NSIsInVzZXJfaWQiOjI0fQ.vkJk2wSO7Wf_tvEgVQDrawxnN9zzOLxW2lHHEJt8HJY",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/auth/token/refresh",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "refresh",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3NjIzNzQyNSwiaWF0IjoxNjc2MTUxMDI1LCJqdGkiOiIzOTkwNzE0ZDE5MWU0OTAzYWRlMjA5ZDA0ZGY4ZDQ0NSIsInVzZXJfaWQiOjI0fQ.vkJk2wSO7Wf_tvEgVQDrawxnN9zzOLxW2lHHEJt8HJY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/auth/password_reset/MjQ/bjh9mo-a1d2ac2f98f9dc43905d7779505b1868/",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"password_reset",
+								"MjQ",
+								"bjh9mo-a1d2ac2f98f9dc43905d7779505b1868",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password 0",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "guillaumeschaffer@yahoo.fr",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/auth/request_reset_email",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"request_reset_email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password 2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "password2",
+									"type": "default"
+								},
+								{
+									"key": "token",
+									"value": "bjha3g-d8501146a7c151a1670f7578f3616241",
+									"type": "default"
+								},
+								{
+									"key": "uidb64",
+									"value": "MjQ",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/auth/password_reset_complete",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"auth",
+								"password_reset_complete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Route",
+			"item": [
+				{
+					"name": "Get all routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/routes/all",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "tamere2",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "routeatamere",
+									"type": "default"
+								},
+								{
+									"key": "image",
+									"contentType": "",
+									"type": "file",
+									"src": "/home/guillaume/Documents/route_1.jpg"
+								},
+								{
+									"key": "points",
+									"value": "[{\"latitude\": \"45\", \"longitude\":\"4\", \"index\":\"0\"}, {\"latitude\": \"46\", \"longitude\":\"5\", \"index\":\"1\"}]",
+									"type": "default"
+								},
+								{
+									"key": "points[0][\"longitude\"]",
+									"value": "5,65",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "points[0][\"index\"]",
+									"value": "0",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "points[1][\"lattitude\"]",
+									"value": "50,12",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "points[1][\"longitude\"]",
+									"value": "6,12",
+									"type": "default",
+									"disabled": true
+								},
+								{
+									"key": "points[0][\"index\"]",
+									"value": "1",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/routes/create",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/routes/1",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update specific route",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "supernamenew",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "new description",
+									"type": "default"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/guillaume/Documents/route_1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/routes/update/24?name=new_name&description=new_description&image",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"update",
+								"24"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "new_name"
+								},
+								{
+									"key": "description",
+									"value": "new_description"
+								},
+								{
+									"key": "image",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify route partially",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "new_name",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "description",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/routes/update/24?name=new_name&description=new_description",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"update",
+								"24"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "new_name"
+								},
+								{
+									"key": "description",
+									"value": "new_description"
+								},
+								{
+									"key": "image",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete route",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/routes/delete/1",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get published routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/routes/published",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"published"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Link visited route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "route_id",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{API_URL}}/routes/visited/link",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"visited",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all visited route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/routes/visited",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"routes",
+								"visited"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Point of route",
+			"item": [
+				{
+					"name": "Get full route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{API_URL}}/point_of_route/from_route_id/24",
+							"protocol": "http",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"point_of_route",
+								"from_route_id",
+								"24"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN_ACCESS}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "0.0.0.0:8000/api",
+			"type": "default"
+		},
+		{
+			"key": "TOKEN_ACCESS",
+			"value": ""
+		},
+		{
+			"key": "TOKEN_REFRESH",
+			"value": ""
+		}
+	]
+}
