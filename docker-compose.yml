@@ -58,6 +58,10 @@ services:
     depends_on:
       - db
 
+networks:
+  default:
+    external:
+      name: t-esp-msc2023_default
 
 volumes:
   pg_data:

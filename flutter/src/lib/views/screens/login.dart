@@ -1,6 +1,7 @@
 // DOC & SRC CODE : https://pub.dev/packages/flutter_login
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
